@@ -18,7 +18,7 @@ class Db {
             url VARCHAR(255),
             animated BOOLEAN NOT NULL 
         )`
-        this.db.exec(_q)
+        this.db.prepare(_q).run()
     }
     InsertOne(_d: Link): void{
         const _title = (_d.title) ? _d.title : '  '
@@ -39,6 +39,12 @@ class Db {
     GetAll(): Link[] {
         const _q = `SELECT * FROM ${this.name}`
         return this.db.prepare(_q).all()
+    }
+    GetRandom(): Link {
+        const _q = `SELECT * FROM ${this.name}
+            ORDER BY RANDOM()
+            LIMIT 1`
+        return this.db.prepare(_q).get()
     }
 }
 

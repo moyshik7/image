@@ -8,4 +8,5 @@ db.CreateNew()
     url: 'https://i.imgur.com/srjyh7d.png',
     animated: false
 })*/
-console.log(db.GetAll())
+//console.log(db.GetAll())
+console.log(db.GetRandom())
