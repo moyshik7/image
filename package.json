@@ -4,6 +4,7 @@
   "description": "An image api to provide images from reddit",
   "main": "./comp/main.js",
   "scripts": {
+    "start": "tsc && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "moyshik7",
