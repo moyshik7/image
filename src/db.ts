@@ -1,25 +1,46 @@
-import { Database as DB } from "better-sqlite3"
+import { Database as DatabaseType } from "better-sqlite3"
+import { Link } from './typings'
 
-export class Database {
-    private readonly db: DB;
+import Database from 'better-sqlite3'
+
+class Db {
+    private readonly db: DatabaseType;
     private readonly name: string;
 
-    constructor(_dbName: string) {
-        this.db = new DB(_dbName)
-        this.name = _dbName
+    constructor(_dbName: string, _name: string) {
+        this.db = new Database(_dbName)
+        this.name = _name
     }
-    CreateNew(_table: string): void {
-        if(!_table){ return }
-        const _q = `CREATE TABLE IF NOT EXISTS ${_table} (
+    CreateNew(): void {
+        const _q = `CREATE TABLE IF NOT EXISTS ${this.name} (
             id SERIAL PRIMARY KEY UNIQUE,
             title VARCHAR(350),
             url VARCHAR(255),
             animated BOOLEAN NOT NULL 
         )`
-        this.db.exec(_q).then(console.log).catch(console.error)
+        console.log(_q)
+        this.db.exec(_q)
+    }
+    InsertOne(_d: Link): void{
+        const _title = (_d.title) ? _d.title : '  '
+        const _animated = (_d.animated) ? 'TRUE' : 'FALSE'
+        const _q = `INSERT INTO ${this.name} 
+        (
+            title,
+            url,
+            animated 
+        )
+        VALUES (
+            '${_d.title}',
+            '${_d.url}',
+            ${_animated}
+        )`
+        console.log(_q)
+        this.db.exec(_q)
     }
     GetRandom(){
         
     }
 }
-//dhxhfjfjfjfkfjfjfjfjfjfjdjfjckgkfjdjfjfjdhdjdjdjdjdjdjfjfjdjdjfjdjdjdjsudufjdjdjdudjdjdjdjdjxjdjdjdjfjdjdudhdjxjdjfjcjcjcjcjckfjckcjcjxjcjcjcjcjfjckckc
+
+export { Db as Database }
