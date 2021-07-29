@@ -11,7 +11,6 @@
         "noImplicitAny": false,
         "noImplicitThis": false,
         "alwaysStrict": true,
-        "noUnusedLocals": true,
         "baseUrl": "./",
         "esModuleInterop": true,
         "skipLibCheck": true,
