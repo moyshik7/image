@@ -13,12 +13,11 @@ class Db {
     }
     CreateNew(): void {
         const _q = `CREATE TABLE IF NOT EXISTS ${this.name} (
-            id SERIAL PRIMARY KEY UNIQUE,
+            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
             title VARCHAR(350),
             url VARCHAR(255),
             animated BOOLEAN NOT NULL 
         )`
-        console.log(_q)
         this.db.exec(_q)
     }
     InsertOne(_d: Link): void{
@@ -35,11 +34,11 @@ class Db {
             '${_d.url}',
             ${_animated}
         )`
-        console.log(_q)
-        this.db.exec(_q)
+        this.db.prepare(_q).run()
     }
-    GetRandom(){
-        
+    GetAll(): Link[] {
+        const _q = `SELECT * FROM ${this.name}`
+        return this.db.prepare(_q).all()
     }
 }
 
